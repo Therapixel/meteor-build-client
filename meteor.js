@@ -18,7 +18,7 @@ var argPath = process.argv[2],
 var execute = function(command, name) {
     return new Q(function(resolve, reject) {
         spinner.start();
-        
+
         spawn(command[0], command.slice(1), {
             cwd: basePath
         },function(err, stdout, stderr) {
@@ -26,7 +26,7 @@ var execute = function(command, name) {
 
             if (err){
                 console.log(err.message);
-                
+
                 reject(err);
             } else {
                 resolve({
@@ -34,7 +34,7 @@ var execute = function(command, name) {
                     stderr: stderr,
                 });
             }
-        });        
+        });
     });
 };
 
@@ -68,7 +68,7 @@ module.exports = {
                 command.push(program.url);
             }
 
-            return execute(command, 'build the app, are you in your meteor apps folder?');                        
+            return execute(command, 'build the app, are you in your meteor apps folder?');
         });
     },
     move: function(){
@@ -90,7 +90,7 @@ module.exports = {
                 });
             } catch(e) {
                 // do nothing
-            }            
+            }
         });
     },
     addIndexFile: function(program) {
@@ -98,7 +98,7 @@ module.exports = {
             var starJson = require(path.resolve(buildPath) + '/bundle/star.json');
             var settingsJson = program.settings ? require(path.resolve(program.settings)) : {};
 
-            var content = fs.readFileSync(program.template || path.resolve(__dirname, 'index.html'), {encoding: 'utf-8'});
+            var content = fs.readFileSync(program.template || path.resolve(__dirname, `${program.filename}.html`), {encoding: 'utf-8'});
             var head;
             try{
                 head = fs.readFileSync(path.join(buildPath, 'head.html'), {encoding: 'utf8'});
@@ -187,7 +187,7 @@ module.exports = {
                 settings.PUBLIC_SETTINGS = settingsJson.public;
 
             scripts = scripts.replace('__meteor_runtime_config__', '<script type="text/javascript">__meteor_runtime_config__ = JSON.parse(decodeURIComponent("'+encodeURIComponent(JSON.stringify(settings))+'"));</script>');
-            
+
             // add Meteor.disconnect() when no server is given
             if(!program.url)
                 scripts += '        <script type="text/javascript">Meteor.disconnect();</script>';
@@ -195,7 +195,7 @@ module.exports = {
             content = content.replace(/{{ *> *scripts *}}/, scripts);
 
             // write the index.html
-            return fs.writeFileAsync(path.join(buildPath, 'index.html'), content);
+            return fs.writeFileAsync(path.join(buildPath, `${program.filename}.html`), content);
         });
     },
     cleanUp: function(callback) {
@@ -207,7 +207,7 @@ module.exports = {
                 fs.unlinkSync(path.join(buildPath, 'head.html'));
             } catch (e){
                 console.log("Didn't unlink head.html; doesn't exist.");
-            }            
+            }
         });
     }
 }

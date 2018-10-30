@@ -7,6 +7,10 @@
     {
       "name": "Morten N.O. Nørgaard Henriksen",
       "email": "mh@gi2.dk"
+    },
+    {
+      "name": "Robin Goupil",
+      "email": "rgoupil@therapixel.com"
     }
   ],
   "preferGlobal": true,
@@ -14,10 +18,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/frozeman/meteor-build-client"
+    "url": "https://github.com/rgoupil/meteor-build-client"
   },
   "bugs": {
-    "url": "https://github.com/frozeman/meteor-build-client/issues"
+    "url": "https://github.com/rgoupil/meteor-build-client/issues"
   },
   "keywords": [
     "meteor",

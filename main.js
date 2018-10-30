@@ -54,7 +54,7 @@ Q.try(function() {
     return meteor.build(program);
 })
 .then(function() {
-    console.log('Generating the index.html...');
+    console.log(`Generating the ${program.filename}.html...`);
 
     return meteor.move();
 })

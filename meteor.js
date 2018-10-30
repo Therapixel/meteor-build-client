@@ -98,7 +98,7 @@ module.exports = {
             var starJson = require(path.resolve(buildPath) + '/bundle/star.json');
             var settingsJson = program.settings ? require(path.resolve(program.settings)) : {};
 
-            var content = fs.readFileSync(program.template || path.resolve(__dirname, `${program.filename}.html`), {encoding: 'utf-8'});
+            var content = fs.readFileSync(program.template || path.resolve(__dirname, 'index.html'), {encoding: 'utf-8'});
             var head;
             try{
                 head = fs.readFileSync(path.join(buildPath, 'head.html'), {encoding: 'utf8'});

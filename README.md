@@ -1,7 +1,3 @@
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/frozeman/meteor-build-client?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-*Note: The meteor package `frozeman:build-client` is only a placeholder package, don't install.*
-
 # Meteor Build Client
 
 This tool builds and bundles the client part of a Meteor app with a simple index.html,
@@ -9,7 +5,7 @@ so it can be hosted on any server or even loaded via the `file://` protocol.
 
 ## Installation
 
-    $ [sudo] npm install -g meteor-build-client
+    $ [sudo] npm install -g tpx-meteor-build-client
 
 ## Usage
 
@@ -17,10 +13,10 @@ so it can be hosted on any server or even loaded via the `file://` protocol.
     $ cd myApp
 
     // run meteor-build-client
-    $ meteor-build-client ../myOutputFolder
+    $ tpx-meteor-build-client ../myOutputFolder
 
 **Warning** the content of the output folder will be deleted before building the new output! So dont do things like
-`$ meteor-build-client /home`!
+`$ tpx-meteor-build-client /home`!
 
 ### Output
 
@@ -33,13 +29,13 @@ The content of the output folder could look as follows:
 
 For a list of options see:
 
-    $ meteor-build-client --help
+    $ tpx-meteor-build-client --help
 
 ### Passing a settings.json
 
 You can pass an additional settings file using the `--settings` or `-s` option:
 
-    $ meteor-build-client ../myOutputFolder -s ../settings.json
+    $ tpx-meteor-build-client ../myOutputFolder -s ../settings.json
 
 **Note** Only the `public` property of that JSON file will be add to the `Meteor.settings` property.
 
@@ -48,7 +44,7 @@ You can pass an additional settings file using the `--settings` or `-s` option:
 
 Additionally you can set the `ROOT_URL` of your app using the `--url` or `-u` option:
 
-    $ meteor-build-client ../myOutputFolder -u http://myserver.com
+    $ tpx-meteor-build-client ../myOutputFolder -u http://myserver.com
 
 If you pass `"default"`, your app will try to connect to the server where the application was served from.
 
@@ -59,7 +55,7 @@ If this option was not set, it will set the server to `""` (empty string) and wi
 If you want to be able to start you app by simply opening the index.html (using the `file://` protocol),
 you need to link your files relative. You can do this by setting the `--path` or `-p` option:
 
-    $ meteor-build-client ../myOutputFolder -p ""
+    $ tpx-meteor-build-client ../myOutputFolder -p ""
 
 The default path value is `"/"`.
 
@@ -69,7 +65,7 @@ The default path value is `"/"`.
 
 If you want to provide a custom template for the initial HTML provide an HTML file with the `--template` or `-t` option:
 
-    $ meteor-build-client ../myOutputFolder -t ../myTemplate.html
+    $ tpx-meteor-build-client ../myOutputFolder -t ../myTemplate.html
 
 The template file need to contain the following placholders: `{{> head}}`, `{{> css}}` and `{{> scripts}}`.
 The following example adds a simple loading text to the initial HTML file (Your app should later take care of removing the loading text):

@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
+const fs = require('fs');
+const path = require('path');
+const chokidar = require('chokidar');
+const _ = require('underscore');
 
 // CLI Options
-var program = require('commander');
+const program = require('commander');
 
-var Q = require('bluebird');
-
-var packageJson = require('./package.json');
+const packageJson = require('./package.json');
 
 // VARIABLES
-var argPath = process.argv[2];
-var meteor = require('./meteor.js');
+const argPath = process.argv[2];
+const meteor = require('./meteor.js');
 
 program
     .version(packageJson.version)
@@ -21,10 +22,9 @@ program
     .option('-s, --settings <settings.json>', 'Set optional data for Meteor.settings in your application.')
     .option('-u, --url <url>', 'The Root URL of your app. If "default", Meteor will try to connect to the Server where it was served from. Default is: "" (empty string)')
     // .option('-d, --ddp <url>', 'The URL of your Meteor DDP server, e.g. "ddp+sockjs://ddp.myapp.com/sockjs". If you don\'t add any it will also add call "Meteor.disconnect();" to prevent the app from conneting.')
-    //.option('-S, --static', 'All generated files will be named after the --filename option instead of its hash.')
     .option('-f, --filename <filename>', 'The filename to use for naming files. Defaults is: "index"', 'index');
 
-program.on('--help', function(){
+program.on('--help', function() {
     console.log('  Warning:');
     console.log('');
     console.log('  The content of the output folder will be deleted before building the new output!');
@@ -34,8 +34,7 @@ program.on('--help', function(){
 
 program.parse(process.argv);
 
-
-Q.try(function() {
+async function run() {
     if (!argPath) {
         throw new Error("You need to provide a path for the build output, for example:\n\n$ meteor-build-client myBuildFolder");
     }
@@ -47,29 +46,31 @@ Q.try(function() {
     if(program.template && !fs.lstatSync(program.template).isFile()) {
         throw new Error('The template file "'+ program.template +'" doesn\'t exist or is not a valid template file');
     }
-})
-.then(function() {
+
     console.log('Bundling Meteor app...');
 
-    return meteor.build(program);
-})
-.then(function() {
+    await meteor.build(program);
+
+    console.log(`Moving Meteor app bundle...`);
+
+    await meteor.move();
+
     console.log(`Generating the ${program.filename}.html...`);
 
-    return meteor.move();
-})
-.then(function() {
-    return meteor.addIndexFile(program);
-})
-.then(function() {
-    return meteor.cleanUp();
-})
-.then(function() {
+    await meteor.addIndexFile(program);
+
+    console.log('Cleaning up...');
+
+    await meteor.cleanUp();
+
     console.log('Done!');
     console.log('-----');
-    console.log('You can find your files in "'+ require('path').resolve(argPath) +'".');
-})
-.catch(function(err) {
+    console.log('You can find your files in "'+ path.resolve(argPath) +'".');
+}
+
+try {
+    run();
+} catch (err) {
     if (err.stderr || err.stdout) {
         console.error(err.stdout, err.stderr);
     } else {
@@ -77,4 +78,4 @@ Q.try(function() {
     }
 
     process.exit(-1);
-});
+}

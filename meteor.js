@@ -2,7 +2,6 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
-var spinner = require('simple-spinner');
 var spawn = require('buffered-spawn');
 
 // VARIABLES
@@ -13,8 +12,6 @@ const buildPath = path.resolve(argPath);
 // execute shell scripts
 function execute(command) {
     return new Promise(function(resolve, reject) {
-        spinner.start();
-
         spawn(command[0], command.slice(1), {
             cwd: basePath
         }, function(err, stdout, stderr) {

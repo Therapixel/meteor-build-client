@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const chokidar = require('chokidar');
 const _ = require('underscore');
 
 // CLI Options

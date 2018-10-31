@@ -29,7 +29,7 @@
     "browser-only"
   ],
   "bin": {
-    "meteor-build-client": "main.js"
+    "tpx-meteor-build-client": "main.js"
   },
   "main": "main.js",
   "dependencies": {

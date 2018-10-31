@@ -1,16 +1,16 @@
 {
-  "name": "meteor-build-client",
-  "version": "0.4.1",
+  "name": "tpx-meteor-build-client",
+  "version": "0.5.0",
   "description": "A bundles the client part of a Meteor app.",
-  "author": "Fabian Vogelsteller <fabian@frozeman.de>",
+  "author": "Robin Goupil <rgoupil@therapixel.com>",
   "contributors": [
     {
       "name": "Morten N.O. Nørgaard Henriksen",
       "email": "mh@gi2.dk"
     },
     {
-      "name": "Robin Goupil",
-      "email": "rgoupil@therapixel.com"
+      "name": "Fabian Vogelsteller",
+      "email": "fabian@frozeman.de"
     }
   ],
   "analyze": true,
@@ -23,6 +23,7 @@
     "url": "https://github.com/rgoupil/meteor-build-client/issues"
   },
   "keywords": [
+    "tpx",
     "meteor",
     "client",
     "client-only",

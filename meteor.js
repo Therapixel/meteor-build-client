@@ -15,8 +15,6 @@ function execute(command) {
         spawn(command[0], command.slice(1), {
             cwd: basePath
         }, function(err, stdout, stderr) {
-            spinner.stop();
-
             if (err){
                 console.log(err.message);
 

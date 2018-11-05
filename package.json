@@ -1,6 +1,6 @@
 {
   "name": "tpx-meteor-build-client",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "A bundles the client part of a Meteor app.",
   "author": "Robin Goupil <rgoupil@therapixel.com>",
   "contributors": [
